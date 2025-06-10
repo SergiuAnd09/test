@@ -1,15 +1,26 @@
 pipeline {
     agent any
     stages {
-        stage('Hello') {
-            steps {
-                echo 'Hello, world!'
-            }
+        stage('paralele') {
+               parallel{
+					stage('prima'){
+						agent {
+							label "any"
+						}
+						steps {
+							bat "ipconfig"
+						}
+					
+					}
+					stage('a doua'){
+						agent {
+							label "any"
+						}
+						steps {
+							bat "ping 127.0.0.1"
+						}
+					}
+			   }
+            
         }
-		stage('hit an ipconfig'){
-			steps{
-				bat 'ipconfig'
-			}
-		}
     }
-}
